@@ -18,20 +18,22 @@ class indicador_cip extends Component{
     
     getChartData(){
 
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
        
             const value = res.data;
+            let novo_array = value["result"];
+
             let novo_array_date = [];
             let novo_array_indicator_cip = [];
            
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
-           value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_indicator_cip.push({
                     "CipIndicator": i.CipIndicator,
                 });
@@ -53,16 +55,14 @@ class indicador_cip extends Component{
             let CipIndicatorArray2 = CipIndicatorArray15.map(Number);
             let DateArray2 = DateArray1;
 
-            let CipIndicatorArray3 = CipIndicatorArray2.reverse();
-            let DateArray3 = DateArray2.reverse();
-        
+    
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "Indicador de CIP",
-                            data: CipIndicatorArray3,
+                            data: CipIndicatorArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

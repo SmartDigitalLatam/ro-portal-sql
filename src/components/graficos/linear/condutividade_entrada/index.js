@@ -18,23 +18,24 @@ class condutividade_entrada extends Component{
     
     getChartData(){
         
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
        
             const value = res.data;
+            let novo_array = value["result"];
+
             let novo_array_date = [];
             let novo_array_feed_conductivity = [];
            
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
-           value.map(function(i){
+           novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                  
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_feed_conductivity.push({
-                   
                     "FeedConductivity": i.FeedConductivity,
                 });
             })
@@ -45,19 +46,15 @@ class condutividade_entrada extends Component{
         
             //converte a array de string em nnumeros
             let FeedConductivityArray2 = FeedConductivityArray1.map(Number);
-            let DateArray2 = DateArray1;
-
-            let FeedConductivityArray3 = FeedConductivityArray2.reverse();
-            let DateArray3 = DateArray2.reverse();
-        
+            let DateArray2 = DateArray1;        
         
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "Condutividade Entrada (μS/cm)",
-                            data: FeedConductivityArray3,
+                            data: FeedConductivityArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

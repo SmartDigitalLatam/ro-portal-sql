@@ -41,14 +41,14 @@ export default class data extends Component {
         }
     }
     componentDidMount() {
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
     
              //pegando valor do api - uri - localhost
              const value = res.data;
 
              //adentrando o campo [result]
              //let novo_array = value["result"]; - usar essa contrução quando usar cosmoDB API SQL
-             let novo_array = value;
+             let novo_array = value["result"];
 
 
              
@@ -85,7 +85,7 @@ export default class data extends Component {
     let k = data_array_1.length;
     
    
-    let data_value = data_array_1[0];
+    let data_value = data_array_1[k-1];
 
 
     

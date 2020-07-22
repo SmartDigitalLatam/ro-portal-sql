@@ -18,20 +18,22 @@ class pH_entrada extends Component{
     
     getChartData(){
 
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
             const value = res.data;
+            let novo_array = value["result"];
+
             let novo_array_date = [];
             let novo_array_ph = [];
            
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
-           value.map(function(i){
+           novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                  
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_ph.push({
                   
                     "pH": i.pH,
@@ -46,16 +48,15 @@ class pH_entrada extends Component{
             let pHArray2 = pHArray1.map(Number);
             let DateArray2 = DateArray1;
 
-            let pHArray3 = pHArray2.reverse();
-            let DateArray3 = DateArray2.reverse();
+
         
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "pH Entrada",
-                            data: pHArray3,
+                            data: pHArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

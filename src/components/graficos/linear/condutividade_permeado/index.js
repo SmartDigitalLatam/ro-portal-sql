@@ -18,21 +18,24 @@ class condutividade_permeado extends Component{
     
     getChartData(){
 
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
        
             const value = res.data;
+            let novo_array = value["result"];
+
+
             let novo_array_date = [];
             let novo_array_perm_conductivity = [];
            
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
-           value.map(function(i){
+           novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                 
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_perm_conductivity.push({
                    
                     "PermConductivity": i.PermConductivity,
@@ -47,16 +50,14 @@ class condutividade_permeado extends Component{
             let PermConductivityArray2 = PermConductivityArray1.map(Number);
             let DateArray2 = DateArray1;
 
-            let PermConductivityArray3 = PermConductivityArray2.reverse();
-            let DateArray3 = DateArray2.reverse();
-        
+     
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "Condutividade Permeado (μS/cm)",
-                            data: PermConductivityArray3,
+                            data: PermConductivityArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

@@ -17,23 +17,24 @@ class pressao_concentrado_estagio_1 extends Component{
 
     
     getChartData(){
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
     
             //pegando valor do api - uri - localhost
             const value = res.data;
+            let novo_array = value["result"];
         
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
             let novo_array_pressao_concentrado_estag_1 = [];
             let novo_array_date = [];
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                    
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_pressao_concentrado_estag_1.push({
             
                     "PressureConcentradStageOne": i.PressureConcentradStageOne,
@@ -48,18 +49,16 @@ class pressao_concentrado_estagio_1 extends Component{
            let PressureConcentradStageOneArray2 = PressureConcentradStageOneArray1.map(Number);
            let DateArray2 = DateArray1;
 
-           let PressureConcentradStageOneArray3 = PressureConcentradStageOneArray2.reverse();
-           let DateArray3 = DateArray2.reverse();    
-        
+       
             //-----------------------------------------------__________--------------------------------------   
                     
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "Pressão Concentrado Estágio 1 (kgf/cm²)",
-                            data: PressureConcentradStageOneArray3,
+                            data: PressureConcentradStageOneArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

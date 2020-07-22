@@ -41,14 +41,14 @@ export default class entrada extends Component {
         }
     }
     componentDidMount() {
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
     
              //pegando valor do api - uri - localhost
              const value = res.data;
 
              //adentrando o campo [result]
              //let novo_array = value["result"]; - usar essa contrução quando usar cosmoDB API SQL
-             let novo_array = value;
+             let novo_array = value["result"];
 
 
              
@@ -127,11 +127,11 @@ export default class entrada extends Component {
     //armazenando valor da última posição na var k
     let k = FeedPressure_array_2.length;
     
-    let FeedPressure_value = FeedPressure_array_2[0];
-    let FeedConductivity_value = FeedConductivity_array_2[0];
-    let FeedFlow_value = FeedFlow_array_2[0];
-    let FeeTemperature_value = FeeTemperature_array_2[0];
-    let ph_value = ph_array_2[0];
+    let FeedPressure_value = FeedPressure_array_2[k-1];
+    let FeedConductivity_value = FeedConductivity_array_2[k-1];
+    let FeedFlow_value = FeedFlow_array_2[k-1];
+    let FeeTemperature_value = FeeTemperature_array_2[k-1];
+    let ph_value = ph_array_2[k-1];
 
 
 

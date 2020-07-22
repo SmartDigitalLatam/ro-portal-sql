@@ -18,21 +18,22 @@ class pressao_concentrado_final extends Component{
     
     getChartData(){
 
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
        
             const value = res.data;
+            let novo_array = value["result"];
             let novo_array_pressao_concentrado_final = [];
             let novo_array_date = [];
            
             // pega o valor especifico dentro da aarray de obejtos e gera um anova array de objetos
-           value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_pressao_concentrado_final.push({
                    
                     "ConcentratedPressure": i.ConcentratedPressure,
                 });
             })
 
-            value.map(function(i){
+            novo_array.map(function(i){
                 novo_array_date.push({
                     "Date": i.Date,
                    
@@ -47,16 +48,14 @@ class pressao_concentrado_final extends Component{
             let ConcentratedPressureArray2 = ConcentratedPressureArray1.map(Number);
             let DateArray2 = DateArray1;
 
-            let ConcentratedPressureArray3 = ConcentratedPressureArray2.reverse();
-            let DateArray3 = DateArray2.reverse();
-        
+
             this.setState({
                 chartData:{
-                    labels: DateArray3,
+                    labels: DateArray2,
                     datasets: [
                         {
                             label: "Pressão Concentrado Estágio Final (kgf/cm²)",
-                            data: ConcentratedPressureArray3,
+                            data: ConcentratedPressureArray2,
                             lineTension: 0.1,
                             fill:false,
                             backgroundColor: 'rgba(216,216,216,0.4)',

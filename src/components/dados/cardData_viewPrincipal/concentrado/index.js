@@ -41,14 +41,14 @@ export default class concentrado extends Component {
         }
     }
     componentDidMount() {
-        axios.get("https://ro-back-graph.azurewebsites.net/person").then(res => {
+        axios.get("https://ro-back-sql.azurewebsites.net/data").then(res => {
     
              //pegando valor do api - uri - localhost
              const value = res.data;
 
              //adentrando o campo [result]
              //let novo_array = value["result"]; - usar essa contrução quando usar cosmoDB API SQL
-             let novo_array = value;
+             let novo_array = value["result"];
 
 
              
@@ -97,8 +97,8 @@ export default class concentrado extends Component {
     //armazenando valor da última posição na var k
     let k = ConcentratedPressure_array_2.length;
     
-    let ConcentratedPressure_value = ConcentratedPressure_array_2[0];
-    let ConcentratedFlow_value = ConcentratedFlow_array_2[0];
+    let ConcentratedPressure_value = ConcentratedPressure_array_2[k-1];
+    let ConcentratedFlow_value = ConcentratedFlow_array_2[k-1];
 
     
 
